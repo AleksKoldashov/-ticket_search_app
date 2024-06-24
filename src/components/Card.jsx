@@ -1,45 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card, Col, Row } from 'antd';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import './styles/card.css'
-import { apiAllAiroports } from '../api/apiService';
+
 
 
 export default function CardTikcet ({data}){
-    const queryCache = useQueryClient() 
+const queryCache = useQueryClient() 
    
-    const {data:allairoport, isPending, isError, error, isSuccess}=useQuery({
-        queryKey: ['allairoport'], 
-        queryFn: apiAllAiroports,
-   
-      })
-      
-   
-    //   useEffect(()=>{
-    //     if(isSuccess){
-    //       queryCache.invalidateQueries({queryKey:['airoports']})
-    //     }
-    //   },[data, isSuccess])
- const fn1 = () =>{
-    const arr =allairoport?.find((item)=>item.code === data.origin_airport )
-    return arr
- }   
- const fn2 = () =>{
-    const arr =allairoport?.find((item)=>item.code === data.destination_airport)
-    return arr
- }   
-
-
-
-
-
-
 const styledCard = {
-    width: 626,
+    width: 1000,
     marginTop: '25px',
-    height: 270,
-    // color: '#00a0e9'
-    
+    height: 300,
 }
 
 
@@ -93,25 +65,21 @@ if(d>60){
         return {c,d}
         }
 
-if (isPending) {
-    <p>Loading ....</p>
-  }
-  if (isError) {
-    <p>{error.message}Error....</p>
-  }
 return<>
   <Card
     bordered={true}
     style={styledCard}
   >
     <Row span={3}>
-      <Col span={8}><p className='price_card'>{data.price}</p></Col>
-      <Col span={2} push={12}><img alt='logo' src={`https://pics.avs.io/100/50/${data.airline}.png`}/></Col>
+      <Col span={8}><p className='price_card'>ЦЕНА {data.price}руб</p></Col>
+      <Col span={8}><p className='price_card'>№ рейса {data.flight_number}</p></Col>
+      <Col span={2} push={4}><img alt='logo' src={`https://pics.avs.io/100/50/${data.airline}.png`}/></Col>
     </Row>
     <Row>
-      <Col span={8}>аэропорт {fn1()?.name} {data.flight_number}</Col>
+      
+      <Col span={8}>аэропорт {data.origin_airport} </Col> 
       <Col span={8}>Количество пересадок: {data.transfers}</Col>
-      <Col span={8}>аэропорт{fn2()?.name}</Col>
+      <Col span={8}>аэропорт{data.destination_airport}</Col>
     </Row>
     <Row>
       <Col span={8}>вылет {day}-{month+1}-{yaer}</Col>
@@ -121,6 +89,7 @@ return<>
     <Row>
       <Col span={8}>
       {hours}:{minutes.toString().padStart(2,'0')}
+  
       </Col>
       <Col span={8}>{time(data.duration_to).a}ч.{time(data.duration_to).b.toString().padStart(2,'0')}м.</Col>
       <Col span={8}>{time2(data.duration_to).c}ч.{time2(data.duration_to).d.toString().padStart(2,'0')}м.</Col>
@@ -131,9 +100,9 @@ return<>
     <hr/>
         <p>Обратно</p>
     <Row>
-      <Col span={8}>аэропорт {fn2()?.name} {data.flight_number}</Col>
+      <Col span={8}>аэропорт {} {data.flight_number}</Col>
       <Col span={8}>Количество пересадок: {data.transfers}</Col>
-      <Col span={8}>аэропорт{fn1()?.name}</Col>
+      <Col span={8}>аэропорт{}</Col>
     </Row>
     <Row>
       <Col span={8}>вылет {day_return}-{month_return+1}-{yaer_return}</Col>
@@ -147,12 +116,10 @@ return<>
       <Col span={8}>{time_return(data.duration_back).a}ч.{time_return(data.duration_back).b.toString().padStart(2,'0')}м.</Col>
       <Col span={8}>{time2_return(data.duration_back).c}ч.{time2_return(data.duration_back).d.toString().padStart(2,'0')}м.</Col>
     </Row>
-        
         </>
       :
     null
     }
-    
   </Card>
     </>
 }

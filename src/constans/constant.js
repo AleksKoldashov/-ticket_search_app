@@ -1,4 +1,4 @@
-const param = {
+export const queryparamTicket = {
     departure_point:'origin=MOW',
     destination: '&destination=DXB',
     departure_date: '&departure_at=2024-02-29',

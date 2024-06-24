@@ -1,12 +1,11 @@
 import React from 'react';
 import { Card, Col, Row } from 'antd';
-import { useQueryClient } from '@tanstack/react-query';
 import './styles/card.css'
 
 
 
 export default function CardTikcet ({data}){
-const queryCache = useQueryClient() 
+
    
 const styledCard = {
     width: 1000,

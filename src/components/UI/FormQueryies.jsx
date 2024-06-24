@@ -42,7 +42,7 @@ export default function FormQueries () {
         enabled: true
     })
     
- 
+    console.log(ticket);
     const updateData =()=>{
         queryCache.invalidateQueries({queryKey:['airoports']})
         queryCache.invalidateQueries({queryKey:['ticket']})
@@ -111,7 +111,7 @@ export default function FormQueries () {
                 size="large" 
                 style={{marginTop:'15px'}}
                 onClick={()=>{updateData()}} >
-                  
+
                  Найти билет
                 </Button>
               </ConfigProvider>
